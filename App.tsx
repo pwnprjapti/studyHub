@@ -133,7 +133,7 @@ export default function App() {
 
   // Test MongoDB Server connection
   const testMongoConnection = async (urlToTest?: string) => {
-    const url = (urlToTest || mongoServerUrl).trim().replace(/\/+$/, '');
+    let url = (urlToTest || mongoServerUrl).trim().replace(/\/+$/, '');
     if (!url) {
       Alert.alert('Missing URL', 'Please enter a valid MongoDB Server URL.');
       return;
@@ -143,27 +143,45 @@ export default function App() {
       setMongoStatus('disconnected');
       Alert.alert(
         'MongoDB Atlas URI Detected 💡',
-        'Aapne database connection string (mongodb+srv://...) yahan daali hai.\n\nYeh connection string aapko apne computer ki "server/.env" file me paste karni hai.\n\nYahan app me backend API ka address (jaise http://192.168.1.87:5000 ya http://localhost:5000) daalna hota hai.'
+        'Aapne database connection string (mongodb+srv://...) yahan daali hai.\n\nYeh connection string aapko Render ke Environment Variables me MONGODB_URI ke roop me paste karni hai.\n\nYahan app me Render ka web address (jaise https://your-server.onrender.com) daalna hota hai.'
       );
       return;
+    }
+
+    // Auto-upgrade onrender URLs to https://
+    if (url.startsWith('http://') && url.includes('.onrender.com')) {
+      url = url.replace('http://', 'https://');
+      setMongoServerUrl(url);
     }
 
     setMongoStatus('checking');
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 4000);
+      const timeoutId = setTimeout(() => controller.abort(), 7000);
       const res = await fetch(`${url}/api/health`, {
         signal: controller.signal,
       });
       clearTimeout(timeoutId);
       const data = await res.json();
       if (data && data.status === 'ok') {
-        setMongoStatus('connected');
+        if (data.mongoStatus === 'connected') {
+          setMongoStatus('connected');
+          saveMongoDbConfig(url, mongoAutoSync);
+          Alert.alert('Connected 🟢', 'Server API aur MongoDB Atlas dono successfully connect ho gaye hain! Setting save ho gayi hai.');
+        } else {
+          setMongoStatus('disconnected');
+          Alert.alert(
+            'MongoDB Disconnected on Server ⚠️',
+            'Server API online hai, lekin Render server MongoDB Atlas se connect nahi ho pa raha hai.\n\nKripya ye do cheezein check karein:\n1. Render Dashboard > Environment me MONGODB_URI add hai ya nahi.\n2. MongoDB Atlas > Network Access me "0.0.0.0/0" (Allow from anywhere) allow hai ya nahi.'
+          );
+        }
       } else {
         setMongoStatus('disconnected');
+        Alert.alert('Connection Failed', 'Server ne unexpected response diya.');
       }
-    } catch (err) {
+    } catch (err: any) {
       setMongoStatus('disconnected');
+      Alert.alert('Server Unreachable', `Could not connect to ${url}. Check your internet connection and make sure Render server is awake.`);
     }
   };
 

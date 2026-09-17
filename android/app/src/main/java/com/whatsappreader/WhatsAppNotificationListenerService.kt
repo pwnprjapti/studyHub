@@ -181,7 +181,11 @@ class WhatsAppNotificationListenerService : NotificationListenerService() {
             Thread {
                 var conn: HttpURLConnection? = null
                 try {
-                    val base = serverUrl.trimEnd('/')
+                    var sanitizedUrl = serverUrl.trim()
+                    if (sanitizedUrl.startsWith("http://") && sanitizedUrl.contains(".onrender.com")) {
+                        sanitizedUrl = sanitizedUrl.replace("http://", "https://")
+                    }
+                    val base = sanitizedUrl.trimEnd('/')
                     val endpoint = if (base.endsWith("/api/messages")) base else "$base/api/messages"
                     val url = URL(endpoint)
                     conn = url.openConnection() as HttpURLConnection
@@ -189,8 +193,8 @@ class WhatsAppNotificationListenerService : NotificationListenerService() {
                     conn.setRequestProperty("Content-Type", "application/json; utf-8")
                     conn.setRequestProperty("Accept", "application/json")
                     conn.doOutput = true
-                    conn.connectTimeout = 6000
-                    conn.readTimeout = 6000
+                    conn.connectTimeout = 8000
+                    conn.readTimeout = 8000
 
                     val outputStream: OutputStream = conn.outputStream
                     val bytes = jsonItem.toString().toByteArray(Charsets.UTF_8)
@@ -199,7 +203,14 @@ class WhatsAppNotificationListenerService : NotificationListenerService() {
                     outputStream.close()
 
                     val code = conn.responseCode
-                    Log.d(TAG, "MongoDB Background Sync HTTP Response: $code")
+                    Log.d(TAG, "MongoDB Background Sync HTTP Response: $code to $endpoint")
+                    if (code in 200..299) {
+                        val responseText = conn.inputStream.bufferedReader().use { it.readText() }
+                        Log.d(TAG, "Sync Response: $responseText")
+                    } else {
+                        val errorText = conn.errorStream?.bufferedReader()?.use { it.readText() } ?: "No error body"
+                        Log.e(TAG, "Sync Error Body: $errorText")
+                    }
                 } catch (e: Exception) {
                     Log.e(TAG, "MongoDB Background Sync Error: ${e.message}")
                 } finally {

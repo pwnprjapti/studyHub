@@ -54,6 +54,14 @@ app.get('/api/health', (req, res) => {
 // Save single message or batch of messages
 app.post('/api/messages', async (req, res) => {
   try {
+    if (!isMongoConnected) {
+      console.error('❌ [MongoDB Error] Received messages, but MongoDB is DISCONNECTED on server!');
+      return res.status(503).json({
+        success: false,
+        error: 'MongoDB is disconnected on the server. Please verify MONGODB_URI and MongoDB Atlas IP access (0.0.0.0/0).',
+      });
+    }
+
     const payload = req.body;
     const messages = Array.isArray(payload)
       ? payload

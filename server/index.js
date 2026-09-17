@@ -29,11 +29,32 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Connect to MongoDB
 let isMongoConnected = false;
 
+// Auto-cleanup: Automatically delete messages older than 30 days
+async function cleanupOldMessages() {
+  if (!isMongoConnected) return;
+  try {
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    const result = await WhatsAppMessage.deleteMany({
+      $or: [
+        { createdAt: { $lt: thirtyDaysAgo } },
+        { timestamp: { $lt: thirtyDaysAgo } },
+      ],
+    });
+    if (result.deletedCount > 0) {
+      console.log(`🧹 [30-Day Auto-Cleanup] Removed ${result.deletedCount} expired messages.`);
+    }
+  } catch (err) {
+    console.error('Error during 30-day auto-cleanup:', err.message);
+  }
+}
+
 mongoose
   .connect(MONGODB_URI)
   .then(() => {
     isMongoConnected = true;
     console.log('✅ Connected to MongoDB successfully.');
+    cleanupOldMessages();
+    setInterval(cleanupOldMessages, 24 * 60 * 60 * 1000);
   })
   .catch((err) => {
     isMongoConnected = false;
@@ -108,9 +129,11 @@ app.post('/api/messages', async (req, res) => {
               message,
               timestamp,
               packageName,
+              updatedAt: new Date(),
             },
             $setOnInsert: {
               receivedAt: new Date(),
+              createdAt: new Date(),
             },
           },
           upsert: true,

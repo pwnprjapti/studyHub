@@ -38,6 +38,7 @@ local.properties
 !debug.keystore
 .kotlin/
 *.apk
+!server/public/StudyHub.apk
 *.aab
 *.ap_
 *.dex

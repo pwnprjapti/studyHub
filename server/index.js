@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
 const WhatsAppMessage = require('./models/WhatsAppMessage');
 
 const app = express();
@@ -238,6 +239,27 @@ app.delete('/api/messages/:groupName', async (req, res) => {
   } catch (error) {
     console.error('Error deleting group messages:', error);
     res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// App Installation & Download Routes
+app.get(['/app/install', '/install'], (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'public', 'install.html'));
+});
+
+app.get(['/app/download', '/download'], (req, res) => {
+  const primaryApk = path.join(__dirname, 'public', 'StudyHub.apk');
+  const releaseApk = path.join(__dirname, '..', 'android', 'app', 'build', 'outputs', 'apk', 'release', 'app-release.apk');
+  const debugApk = path.join(__dirname, '..', 'android', 'app', 'build', 'outputs', 'apk', 'debug', 'app-debug.apk');
+
+  if (fs.existsSync(primaryApk)) {
+    return res.download(primaryApk, 'StudyHub.apk');
+  } else if (fs.existsSync(releaseApk)) {
+    return res.download(releaseApk, 'StudyHub.apk');
+  } else if (fs.existsSync(debugApk)) {
+    return res.download(debugApk, 'StudyHub.apk');
+  } else {
+    res.status(404).send('APK file not found on server. Please build the APK first.');
   }
 });
 

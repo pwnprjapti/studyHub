@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌟 Kids Study Hub | WhatsApp Group Notes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary: #4F46E5;
+      --primary-hover: #4338CA;
+      --wa-teal: #075E54;
+      --wa-green: #25D366;
+      --wa-chat-bg: #EFEAE2;
+      --bubble-in: #FFFFFF;
+      --bubble-out: #DCF8C6;
+      --accent-yellow: #FBBF24;
+      --accent-pink: #F472B6;
+      --accent-mint: #34D399;
+      --accent-sky: #38BDF8;
+      --bg-body: #F0F4F8;
+      --card-bg: #FFFFFF;
+      --text-dark: #1E293B;
+      --text-muted: #64748B;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --shadow-fun: 0 10px 25px -5px rgba(79, 70, 229, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+      --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Fredoka', 'Nunito', sans-serif;
+      background-color: var(--bg-body);
+      background-image: radial-gradient(#CBD5E1 1.2px, transparent 1.2px);
+      background-size: 24px 24px;
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* Top Playful Header */
+    header {
+      background: linear-gradient(135deg, #075E54 0%, #128C7E 60%, #25D366 100%);
+      color: #FFFFFF;
+      padding: 20px 20px 24px;
+      box-shadow: 0 8px 24px rgba(7, 94, 84, 0.2);
+      border-bottom-left-radius: 28px;
+      border-bottom-right-radius: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before, header::after {
+      content: '✨';
+      position: absolute;
+      font-size: 32px;
+      opacity: 0.25;
+      animation: floatSlow 4s ease-in-out infinite alternate;
+    }
+    header::before { top: 12px; left: 20px; }
+    header::after { bottom: 12px; right: 28px; content: '🎒'; }
+
+    @keyframes floatSlow {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-8px) rotate(10deg); }
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .mascot-avatar {
+      width: 56px;
+      height: 56px;
+      background: #FEF08A;
+      border: 3px solid #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+      animation: bounceMascot 2.5s infinite;
+    }
+
+    @keyframes bounceMascot {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .brand-text h1 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-text p {
+      font-size: 14px;
+      color: #E0F2F1;
+      font-weight: 500;
+      margin-top: 1px;
+    }
+
+    .header-badges {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-pill {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pulse-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #25D366;
+      box-shadow: 0 0 10px #25D366;
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+
+    /* Main Container */
+    main {
+      margin-top: 20px;
+      flex: 1;
+      padding-bottom: 40px;
+    }
+
+    /* Search Bar */
+    .search-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 14px 18px;
+      box-shadow: var(--shadow-fun);
+      border: 3px solid #E2E8F0;
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .search-input-wrap {
+      position: relative;
+    }
+
+    .search-input-wrap input {
+      width: 100%;
+      padding: 14px 18px 14px 48px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-dark);
+      background: #F8FAFC;
+      border: 2px solid #E2E8F0;
+      border-radius: 18px;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .search-input-wrap input:focus {
+      border-color: #128C7E;
+      background: #FFFFFF;
+      box-shadow: 0 0 0 4px rgba(18, 140, 126, 0.15);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      pointer-events: none;
+    }
+
+    /* VIEW 1: HOME PAGE - GROUPS LIST (WhatsApp Style + Kids Theme) */
+    .section-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      padding: 0 4px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .groups-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .group-chat-item {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      box-shadow: var(--shadow-card);
+      border: 2.5px solid #F1F5F9;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+    }
+
+    .group-chat-item:hover {
+      transform: translateY(-3px) scale(1.01);
+      border-color: #128C7E;
+      box-shadow: 0 8px 20px rgba(18, 140, 126, 0.12);
+    }
+
+    .group-avatar {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #128C7E, #25D366);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      box-shadow: 0 4px 10px rgba(18, 140, 126, 0.25);
+      flex-shrink: 0;
+      margin-right: 16px;
+    }
+
+    .group-details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .group-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+
+    .group-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0F172A;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-right: 8px;
+    }
+
+    .group-time {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .group-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .group-snippet {
+      font-size: 14px;
+      color: #64748B;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 500;
+    }
+
+    .msg-count-pill {
+      background: #E0F2F1;
+      color: #00796B;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+
+    .chevron-right {
+      font-size: 20px;
+      color: #94A3B8;
+      margin-left: 10px;
+    }
+
+    /* VIEW 2: GROUP CHAT CONVERSATION (WhatsApp Style + Kids Theme) */
+    .chat-view-container {
+      display: none;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-fun);
+      border: 3px solid #E2E8F0;
+      overflow: hidden;
+    }
+
+    .chat-header-bar {
+      background: #075E54;
+      color: #FFFFFF;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .chat-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateX(-2px);
+    }
+
+    .chat-header-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .chat-header-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .chat-header-text h2 {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .chat-header-text p {
+      font-size: 12px;
+      color: #A7F3D0;
+      font-weight: 600;
+    }
+
+    .chat-header-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .chat-tool-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: #FFFFFF;
+      padding: 7px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .chat-tool-btn:hover {
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    /* WhatsApp Wallpaper Area */
+    .chat-body {
+      background-color: var(--wa-chat-bg);
+      background-image: 
+        radial-gradient(#CBD5E1 1px, transparent 1px),
+        radial-gradient(#E2E8F0 1px, #EFEAE2 1px);
+      background-size: 20px 20px;
+      padding: 24px 20px;
+      min-height: 480px;
+      max-height: 650px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Date Separator Pill */
+    .date-separator {
+      align-self: center;
+      background: #FFFFFF;
+      color: #475569;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 5px 14px;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+      margin-bottom: 6px;
+    }
+
+    /* WhatsApp Style Bubble */
+    .chat-bubble {
+      background: var(--bubble-in);
+      border-radius: 16px;
+      border-top-left-radius: 4px;
+      padding: 12px 16px 10px;
+      max-width: 82%;
+      align-self: flex-start;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      position: relative;
+      animation: fadeInBubble 0.25s ease-out;
+    }
+
+    @keyframes fadeInBubble {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .bubble-sender {
+      font-size: 13px;
+      font-weight: 800;
+      color: #D97706; /* Playful Warm Color */
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .bubble-sender.teacher {
+      color: #4F46E5;
+    }
+
+    .bubble-text {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #1E293B;
+      font-weight: 500;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 8px;
+    }
+
+    .bubble-meta {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: #94A3B8;
+      font-weight: 600;
+    }
+
+    .ticks {
+      color: #38BDF8; /* WhatsApp Blue Ticks */
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .bubble-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+      padding-top: 6px;
+      border-top: 1px dashed #E2E8F0;
+    }
+
+    .bubble-btn {
+      background: #F1F5F9;
+      border: 1px solid #E2E8F0;
+      color: #475569;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+
+    .bubble-btn:hover {
+      background: #EEF2FF;
+      color: var(--primary);
+      border-color: #C7D2FE;
+    }
+
+    .bubble-btn.speaking {
+      background: #EF4444;
+      color: #FFFFFF;
+      border-color: #DC2626;
+      animation: pulse 1s infinite;
+    }
+
+    .bubble-btn.starred {
+      background: #FEF08A;
+      color: #854D0E;
+      border-color: #FDE047;
+    }
+
+    /* Empty State */
+    .empty-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 50px 20px;
+      text-align: center;
+      border: 3px dashed #CBD5E1;
+      box-shadow: var(--shadow-card);
+      margin-top: 10px;
+    }
+
+    .empty-icon {
+      font-size: 56px;
+      margin-bottom: 12px;
+      animation: floatSlow 3s ease-in-out infinite alternate;
+    }
+
+    .empty-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+
+    .empty-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 400px;
+      margin: 0 auto 16px;
+      line-height: 1.5;
+    }
+
+    .btn-create-sample {
+      background: linear-gradient(135deg, #10B981, #059669);
+      color: #FFFFFF;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+      transition: all 0.2s;
+    }
+
+    .btn-create-sample:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1E293B;
+      color: #FFFFFF;
+      padding: 12px 20px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 999;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Playful Header -->
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="brand-section">
+          <div class="mascot-avatar">🦉</div>
+          <div class="brand-text">
+            <h1>Kids Study Hub 🎒✨</h1>
+            <p>Your WhatsApp study & homework groups in one place</p>
+          </div>
+        </div>
+
+        <div class="header-badges">
+          <div class="status-pill">
+            <div class="pulse-dot"></div>
+            <span id="atlasStatus">Atlas Connected 🟢</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <main>
+      <!-- Search Bar -->
+      <div class="search-card">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search study groups or homework notes..."
+            oninput="handleSearch()"
+          />
+        </div>
+      </div>
+
+      <!-- VIEW 1: HOME PAGE - ONLY GROUPS WITH MESSAGES -->
+      <section id="homeGroupsView">
+        <div class="section-title-row">
+          <h2 class="section-title">
+            📚 Your Study Groups (<span id="groupsCount">0</span>)
+          </h2>
+          <span style="font-size: 13px; color: #64748B; font-weight: 600;">
+            Tap a group to read its messages 👉
+          </span>
+        </div>
+
+        <!-- Groups List (WhatsApp Chat List Style + Kids Theme) -->
+        <div class="groups-list" id="groupsListContainer">
+          <!-- Dynamic Groups Inserted Here -->
+        </div>
+
+        <!-- Empty State if no groups with messages -->
+        <div class="empty-card" id="emptyGroupsCard" style="display: none;">
+          <div class="empty-icon">🎒📖✨</div>
+          <h3 class="empty-title">No Study Groups With Messages Yet!</h3>
+          <p class="empty-sub">
+            Once a message arrives in a monitored WhatsApp study group, that group will immediately appear right here!
+          </p>
+          <button class="btn-create-sample" onclick="createSampleNote()">
+            + Add a Sample Study Note
+          </button>
+        </div>
+      </section>
+
+      <!-- VIEW 2: GROUP CHAT CONVERSATION (WhatsApp Style + Kids Theme) -->
+      <section id="groupChatView" class="chat-view-container">
+        <!-- WhatsApp Chat Top Bar -->
+        <div class="chat-header-bar">
+          <div class="chat-header-left">
+            <button class="back-btn" onclick="backToGroups()">
+              ‹ Back
+            </button>
+            <div class="chat-header-info">
+              <div class="chat-header-avatar" id="activeChatAvatar">📚</div>
+              <div class="chat-header-text">
+                <h2 id="activeChatTitle">Group Name</h2>
+                <p id="activeChatSubtitle">0 messages captured</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-header-actions">
+            <button class="chat-tool-btn" onclick="window.print()">🖨️ Print</button>
+            <button class="chat-tool-btn" onclick="createSampleNoteForActiveGroup()">+ Test Msg</button>
+          </div>
+        </div>
+
+        <!-- WhatsApp Chat Messages Wallpaper Area -->
+        <div class="chat-body" id="chatMessagesArea">
+          <!-- WhatsApp Bubbles Rendered Here -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <span id="toastIcon">⭐</span>
+    <span id="toastText">Action completed!</span>
+  </div>
+
+  <script>
+    let allMessages = [];
+    let selectedGroupName = null;
+    let searchQuery = '';
+    let starredIds = JSON.parse(localStorage.getItem('starred_chat_ids') || '[]');
+    let speakingMessageId = null;
+
+    // Fetch messages from MongoDB Atlas backend API
+    async function fetchMessages() {
+      try {
+        const res = await fetch('/api/messages?limit=300');
+        const data = await res.json();
+        if (data.success && Array.isArray(data.messages)) {
+          allMessages = data.messages;
+          document.getElementById('atlasStatus').textContent = 'Atlas Connected 🟢';
+
+          if (selectedGroupName) {
+            renderGroupChat();
+          } else {
+            renderGroupsList();
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching messages from server:', err);
+        document.getElementById('atlasStatus').textContent = 'Connecting... 🟠';
+      }
+    }
+
+    // Helper: Normalize group name (removes WhatsApp "(2 messages)" suffix so groups are unique)
+    function getCanonicalGroupName(m) {
+      let name = (m.matchedGroup || m.groupName || '').trim();
+      name = name.replace(/\s*\(\d+\s*messages?\)/gi, '').trim();
+      return name || 'General Group';
+    }
+
+    // Helper: Clean sender and message (extracts actual sender from "Testing (3 messages): nitin Kumar" or "nitin Kumar: Hello")
+    function getCleanSenderAndMessage(m, canonicalGroup) {
+      let rawSender = (m.sender || '').trim();
+      let rawMessage = (m.message || '').trim();
+
+      if (rawSender.includes(':')) {
+        rawSender = rawSender.substring(rawSender.indexOf(':') + 1).trim();
+      }
+      rawSender = rawSender.replace(/\s*\(\d+\s*messages?\)/gi, '').trim();
+
+      // If message itself is in the format "Sender: Message" and sender is empty or equals group name
+      const colonIndex = rawMessage.indexOf(': ');
+      if (colonIndex > 0 && colonIndex < 35) {
+        const prefix = rawMessage.substring(0, colonIndex).trim();
+        if (!prefix.includes('http') && !prefix.includes('/') && prefix.length >= 2) {
+          if (!rawSender || rawSender.toLowerCase() === canonicalGroup.toLowerCase() || rawSender.toLowerCase() === 'classmate') {
+            rawSender = prefix;
+            rawMessage = rawMessage.substring(colonIndex + 2).trim();
+          }
+        }
+      }
+
+      if (!rawSender || rawSender.toLowerCase() === canonicalGroup.toLowerCase()) {
+        rawSender = 'Classmate';
+      }
+
+      return { sender: rawSender, message: rawMessage };
+    }
+
+    function getCleanSender(m, canonicalGroup) {
+      return getCleanSenderAndMessage(m, canonicalGroup).sender;
+    }
+
+    // Helper: Ignore dummy WhatsApp summary notifications like "2 new messages"
+    function isRealMessage(m) {
+      const text = (m.message || '').trim();
+      if (!text) return false;
+      if (/^\d+\s+new\s+messages?$/i.test(text)) return false;
+      return true;
+    }
+
+    // Extract ONLY unique groups that have messages
+    function getActiveGroups() {
+      const groupsMap = {};
+
+      allMessages.forEach(m => {
+        if (!isRealMessage(m)) return;
+
+        const gName = getCanonicalGroupName(m);
+        const { sender: cleanSender, message: cleanMsg } = getCleanSenderAndMessage(m, gName);
+        const key = gName.toLowerCase();
+
+        if (!groupsMap[key]) {
+          groupsMap[key] = {
+            name: gName,
+            messages: [],
+            lastMessage: cleanMsg,
+            lastSender: cleanSender,
+            lastTimestamp: m.timestamp,
+          };
+        }
+
+        groupsMap[key].messages.push(m);
+
+        // Keep track of newest message
+        const curTime = new Date(m.timestamp).getTime();
+        const existingTime = new Date(groupsMap[key].lastTimestamp).getTime();
+        if (curTime > existingTime) {
+          groupsMap[key].lastTimestamp = m.timestamp;
+          groupsMap[key].lastMessage = cleanMsg;
+          groupsMap[key].lastSender = cleanSender;
+        }
+      });
+
+      // Sort unique groups by latest message timestamp descending
+      return Object.values(groupsMap).sort((a, b) => 
+        new Date(b.lastTimestamp).getTime() - new Date(a.lastTimestamp).getTime()
+      );
+    }
+
+    // Render Home Page: Only groups with messages
+    function renderGroupsList() {
+      const container = document.getElementById('groupsListContainer');
+      const emptyCard = document.getElementById('emptyGroupsCard');
+      const groups = getActiveGroups();
+
+      // Search filter
+      const q = searchQuery.toLowerCase();
+      const filtered = groups.filter(g => 
+        !q || g.name.toLowerCase().includes(q) || g.lastMessage.toLowerCase().includes(q)
+      );
+
+      document.getElementById('groupsCount').textContent = filtered.length;
+
+      if (filtered.length === 0) {
+        container.innerHTML = '';
+        emptyCard.style.display = 'block';
+        return;
+      }
+
+      emptyCard.style.display = 'none';
+
+      container.innerHTML = filtered.map(g => {
+        const icon = getSubjectEmoji(g.name);
+        const timeStr = formatFriendlyDate(g.lastTimestamp);
+        const snippet = g.lastSender ? `${escapeHtml(g.lastSender)}: ${escapeHtml(g.lastMessage)}` : escapeHtml(g.lastMessage);
+
+        return `
+          <div class="group-chat-item" onclick="openGroupChat('${escapeAttr(g.name)}')">
+            <div class="group-avatar">${icon}</div>
+            <div class="group-details">
+              <div class="group-top">
+                <span class="group-name">${escapeHtml(g.name)}</span>
+                <span class="group-time">${timeStr}</span>
+              </div>
+              <div class="group-bottom">
+                <span class="group-snippet">${snippet}</span>
+                <span class="msg-count-pill">${g.messages.length} ${g.messages.length === 1 ? 'note' : 'notes'} 🎒</span>
+              </div>
+            </div>
+            <div class="chevron-right">›</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Open a specific group's chat
+    function openGroupChat(groupName) {
+      selectedGroupName = groupName;
+      document.getElementById('homeGroupsView').style.display = 'none';
+      document.getElementById('groupChatView').style.display = 'block';
+
+      document.getElementById('activeChatTitle').textContent = groupName;
+      document.getElementById('activeChatAvatar').textContent = getSubjectEmoji(groupName);
+
+      // Clear search input for chat view
+      document.getElementById('searchInput').value = '';
+      searchQuery = '';
+      document.getElementById('searchInput').placeholder = `Search notes inside "${groupName}"...`;
+
+      renderGroupChat();
+    }
+
+    // Back to Home Groups list
+    function backToGroups() {
+      selectedGroupName = null;
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      speakingMessageId = null;
+
+      document.getElementById('groupChatView').style.display = 'none';
+      document.getElementById('homeGroupsView').style.display = 'block';
+
+      document.getElementById('searchInput').value = '';
+      searchQuery = '';
+      document.getElementById('searchInput').placeholder = 'Search study groups or homework notes...';
+
+      renderGroupsList();
+    }
+
+    // Render WhatsApp Chat Style Messages for the Active Group
+    function renderGroupChat() {
+      if (!selectedGroupName) return;
+
+      const chatArea = document.getElementById('chatMessagesArea');
+      const lowerSelected = selectedGroupName.toLowerCase();
+
+      // Filter messages belonging to this canonical group
+      const rawGroupMessages = allMessages.filter(m => {
+        if (!isRealMessage(m)) return false;
+        const g = getCanonicalGroupName(m).toLowerCase();
+        return g === lowerSelected;
+      });
+
+      // Sort chronological (oldest to newest for WhatsApp chat style)
+      rawGroupMessages.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+
+      // Prepare clean messages and filter rapid duplicates (within 3.5 seconds)
+      const messages = [];
+      for (const m of rawGroupMessages) {
+        const { sender: cleanSender, message: cleanMsg } = getCleanSenderAndMessage(m, selectedGroupName);
+        const mTime = new Date(m.timestamp).getTime();
+
+        const isDuplicate = messages.some(prev => {
+          const prevTime = new Date(prev.timestamp).getTime();
+          return prev.cleanSender === cleanSender &&
+                 prev.cleanMsg === cleanMsg &&
+                 Math.abs(mTime - prevTime) < 3500;
+        });
+
+        if (!isDuplicate) {
+          messages.push({
+            ...m,
+            cleanSender,
+            cleanMsg
+          });
+        }
+      }
+
+      // Search filter within chat
+      const q = searchQuery.toLowerCase();
+      const filtered = messages.filter(m => {
+        if (!q) return true;
+        return m.cleanSender.toLowerCase().includes(q) || m.cleanMsg.toLowerCase().includes(q);
+      });
+
+      document.getElementById('activeChatSubtitle').textContent = `${filtered.length} study messages captured 🎒`;
+
+      if (filtered.length === 0) {
+        chatArea.innerHTML = `
+          <div class="empty-card" style="margin: auto; max-width: 420px;">
+            <div class="empty-icon">💬✨</div>
+            <h3 class="empty-title">No Messages Here Yet!</h3>
+            <p class="empty-sub">When your teacher posts in "${escapeHtml(selectedGroupName)}" on WhatsApp, it will appear here in WhatsApp chat style.</p>
+            <button class="btn-create-sample" onclick="createSampleNoteForActiveGroup()">+ Send a Test Message</button>
+          </div>
+        `;
+        return;
+      }
+
+      chatArea.innerHTML = `
+        <div class="date-separator">📅 Study Messages & Homework Feed</div>
+        ${filtered.map(m => {
+          const id = m.messageId || m._id || Math.random().toString();
+          const sender = m.cleanSender;
+          const fullTimeStr = formatFullTimestamp(m.timestamp);
+          const isSpeaking = speakingMessageId === id;
+          const isStarred = starredIds.includes(id);
+
+          return `
+            <div class="chat-bubble" id="bubble-${id}">
+              <div class="bubble-sender ${sender.toLowerCase().includes('teacher') ? 'teacher' : ''}">
+                🧑‍🏫 ${escapeHtml(sender)}
+              </div>
+              <div class="bubble-text">${highlightHomeworkKeywords(escapeHtml(m.cleanMsg))}</div>
+              <div class="bubble-meta">
+                <span>🕒 ${fullTimeStr}</span>
+                <span class="ticks">✓✓</span>
+              </div>
+              <div class="bubble-actions">
+                <button
+                  class="bubble-btn ${isSpeaking ? 'speaking' : ''}"
+                  onclick="toggleSpeech('${id}', '${escapeAttr(m.cleanMsg)}')">
+                  ${isSpeaking ? '⏹️ Stop' : '🔊 Read to Me'}
+                </button>
+                <button
+                  class="bubble-btn ${isStarred ? 'starred' : ''}"
+                  onclick="toggleStar('${id}')">
+                  ${isStarred ? '⭐ Starred' : '☆ Star'}
+                </button>
+                <button
+                  class="bubble-btn"
+                  onclick="copyText('${escapeAttr(m.cleanMsg)}')">
+                  📋 Copy
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      `;
+
+      // Auto scroll to bottom
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    // Text-to-Speech
+    function toggleSpeech(id, text) {
+      if (!('speechSynthesis' in window)) {
+        alert('Voice reader not supported in your browser.');
+        return;
+      }
+
+      if (speakingMessageId === id) {
+        window.speechSynthesis.cancel();
+        speakingMessageId = null;
+        renderGroupChat();
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.92; // Slightly slower, clear pace for kids
+      utterance.pitch = 1.05;
+
+      speakingMessageId = id;
+      renderGroupChat();
+
+      utterance.onend = () => {
+        speakingMessageId = null;
+        renderGroupChat();
+      };
+      utterance.onerror = () => {
+        speakingMessageId = null;
+        renderGroupChat();
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // Toggle Star
+    function toggleStar(id) {
+      if (starredIds.includes(id)) {
+        starredIds = starredIds.filter(x => x !== id);
+        showToast('Removed from Starred', '☆');
+      } else {
+        starredIds.push(id);
+        showToast('⭐ Starred! Added to favorites!', '🌟');
+      }
+      localStorage.setItem('starred_chat_ids', JSON.stringify(starredIds));
+      renderGroupChat();
+    }
+
+    // Copy text
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('📋 Copied to clipboard!', '✨');
+      });
+    }
+
+    // Search input handler
+    function handleSearch() {
+      searchQuery = document.getElementById('searchInput').value;
+      if (selectedGroupName) {
+        renderGroupChat();
+      } else {
+        renderGroupsList();
+      }
+    }
+
+    // Create a sample note
+    async function createSampleNote() {
+      const sampleNotes = [
+        {
+          groupName: 'Maths Class 📐',
+          sender: 'Mrs. Sharma (Maths Teacher)',
+          message: 'Homework for today: Please complete Chapter 4 Exercises 4.1, questions 1 to 5 in your notebook! Test on Friday! 📝',
+        },
+        {
+          groupName: 'Science Club 🔬',
+          sender: 'Mr. Verma (Science Teacher)',
+          message: 'Remember to bring 2 leaves and a magnifying glass tomorrow for our biology project on photosynthesis! 🌱🔬',
+        },
+        {
+          groupName: 'English Homework 📖',
+          sender: 'Ms. Anita',
+          message: 'Read Chapter 3 of "The Secret Garden" and write 5 new vocabulary words with their meanings in your study notebook! 🌟',
+        }
+      ];
+
+      const sample = sampleNotes[Math.floor(Math.random() * sampleNotes.length)];
+      await sendSamplePayload(sample.groupName, sample.sender, sample.message);
+    }
+
+    async function createSampleNoteForActiveGroup() {
+      if (!selectedGroupName) return;
+      const senders = ['Mrs. Sharma (Teacher)', 'Mr. Rajesh', 'Science Teacher', 'Class Monitor'];
+      const sampleSender = senders[Math.floor(Math.random() * senders.length)];
+      const sampleMsg = `Class Reminder: Please review Chapter ${Math.floor(Math.random() * 5) + 1} and solve questions 1 to 4 before tomorrow's class! 🎒✏️`;
+
+      await sendSamplePayload(selectedGroupName, sampleSender, sampleMsg);
+    }
+
+    async function sendSamplePayload(groupName, sender, message) {
+      const payload = {
+        id: `sample_${Date.now()}`,
+        groupName: groupName,
+        matchedGroup: groupName,
+        sender: sender,
+        message: message,
+        timestamp: new Date().toISOString()
+      };
+
+      try {
+        await fetch('/api/messages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: [payload] })
+        });
+        await fetchMessages();
+        showToast('✨ New study message added!', '🎉');
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function showToast(text, icon = '⭐') {
+      const t = document.getElementById('toast');
+      document.getElementById('toastText').textContent = text;
+      document.getElementById('toastIcon').textContent = icon;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2400);
+    }
+
+    // Helpers
+    function getSubjectEmoji(groupName) {
+      const lower = groupName.toLowerCase();
+      if (lower.includes('math')) return '📐';
+      if (lower.includes('sci')) return '🔬';
+      if (lower.includes('eng')) return '📖';
+      if (lower.includes('art') || lower.includes('draw')) return '🎨';
+      if (lower.includes('hist') || lower.includes('geo')) return '🌍';
+      if (lower.includes('comput') || lower.includes('code')) return '💻';
+      return '📚';
+    }
+
+    function formatFriendlyDate(ts) {
+      if (!ts) return '';
+      const d = new Date(ts);
+      const now = new Date();
+      const isToday = d.toDateString() === now.toDateString();
+      const timeStr = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      return isToday ? timeStr : `${d.toLocaleDateString([], { month: 'short', day: 'numeric' })}`;
+    }
+
+    function formatTimeOnly(ts) {
+      if (!ts) return '';
+      const d = new Date(ts);
+      return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function formatFullTimestamp(ts) {
+      if (!ts) return '';
+      const d = new Date(ts);
+      const now = new Date();
+      const isToday = d.toDateString() === now.toDateString();
+      const timeStr = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      return isToday ? `Today, ${timeStr}` : `${d.toLocaleDateString([], { day: 'numeric', month: 'short' })}, ${timeStr}`;
+    }
+
+    function highlightHomeworkKeywords(text) {
+      return text.replace(/(\b(?:homework|chapter|exercise|test|quiz|exam|read|page|question|important|notebook)\b)/gi, '<strong style="color: #075E54; background: #E0F2F1; padding: 1px 5px; border-radius: 4px;">$1</strong>');
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/[&<>"']/g, m => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[m]));
+    }
+
+    function escapeAttr(str) {
+      if (!str) return '';
+      return String(str).replace(/["'\\]/g, '\\$&').replace(/\n/g, ' ');
+    }
+
+    // Init & Polling every 4 seconds for live WhatsApp notes
+    fetchMessages();
+    setInterval(() => fetchMessages(), 4000);
+  </script>
+</body>
+</html>

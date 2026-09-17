@@ -190,7 +190,7 @@ class WhatsAppNotificationListenerService : NotificationListenerService() {
                     val url = URL(endpoint)
                     conn = url.openConnection() as HttpURLConnection
                     conn.requestMethod = "POST"
-                    conn.setRequestProperty("Content-Type", "application/json; utf-8")
+                    conn.setRequestProperty("Content-Type", "application/json; charset=utf-8")
                     conn.setRequestProperty("Accept", "application/json")
                     conn.doOutput = true
                     conn.connectTimeout = 8000

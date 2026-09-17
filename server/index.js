@@ -12,6 +12,16 @@ const MONGODB_URI =
 
 // Middlewares
 app.use(cors());
+
+// Normalize Content-Type headers from mobile clients
+app.use((req, res, next) => {
+  const ct = req.headers['content-type'];
+  if (ct && ct.includes('application/json')) {
+    req.headers['content-type'] = 'application/json';
+  }
+  next();
+});
+
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -69,11 +79,15 @@ app.post('/api/messages', async (req, res) => {
       ? payload.messages
       : [payload];
 
-    if (messages.length === 0) {
-      return res.status(400).json({ error: 'No messages provided' });
+    const validMessages = messages.filter(
+      (m) => m && (m.message || m.title || m.groupName)
+    );
+
+    if (validMessages.length === 0) {
+      return res.status(400).json({ error: 'No valid messages provided' });
     }
 
-    const bulkOps = messages.map((m) => {
+    const bulkOps = validMessages.map((m) => {
       const messageId = m.id || m.messageId || `${Date.now()}_${Math.random()}`;
       const groupName = m.groupName || m.matchedGroup || 'Unknown Group';
       const sender = m.sender || m.title || 'Unknown';
